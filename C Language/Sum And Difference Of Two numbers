@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main()
+{
+	
+    int num1_int, num2_int;
+    float num1_float, num2_float;
+    scanf("%d%d",&num1_int,&num2_int);
+    scanf("%f%f",&num1_float,&num2_float);
+    printf("%d %d\n",num1_int+num2_int,num1_int-num2_int);
+    printf("%.1f %.1f\n",num1_float+num2_float,num1_float-num2_float);
+    return 0;
+}
