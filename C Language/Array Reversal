@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    
+    int n,sum=0;
+    scanf("%d",&n); // TAKING INPUT FOR TOTAL NUMBER OF ELEMENTS IN ARRAY
+    
+    int *arr=(int *)malloc(n*sizeof(int)); // ALLOCATING MEMORY FOR DYNAMIC ARRAY TO STORE ELEMENTS.
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",arr+i); // TAKING INPUT AND STORING IT IN *arr
+        
+    }
+    
+    for(int i=n-1;i>-1;i--)
+    {
+        printf("%d ",*(arr+i)); // PRINTING REVERSED ARRAY
+    }
+    free(arr); // FREEING THE MEMORY ALLOCATED TO THE ARRAY
+    return 0;
+}
