@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() {
+
+    char *s;
+    s = malloc(1024 * sizeof(char)); // ALLOCATING MEMORY FOR  A STRING
+    scanf("%[^\n]", s);
+    s = realloc(s, strlen(s) + 1); // REALLOCATING MEMORY ACCORDING TO ENTERED STRING
+    //Write your logic to print the tokens of the sentence here.
+    for(int i=0;i<strlen(s);i++) // LOOP TILL THE END OF THE STRING
+    {
+        if(s[i] == ' ')
+        {
+            printf("\n"); // IF SPACE IS PRESENT THEN PRINT NEW LINE 
+        }
+        else {
+        printf("%c",s[i]); // IF CHARACTER IS PRESENT THEN PRINT CHARACTER.
+        }
+    }
+    return 0;
+}
