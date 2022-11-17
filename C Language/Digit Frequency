@@ -1,0 +1,40 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() {
+
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */    
+    char str[1000],c='0';
+    int arr[10],count=0;
+    gets(str);
+    for(int i=0;i<10;i++) // LOOP FROM 0 TO 9
+    {
+        count=0;
+        for(int j=0;j<strlen(str);j++) // LOOP TILL END OF THE STRING
+        {
+            if(str[j] == c)
+            {
+                count+=1; // NUMBER IS PRESENT SO INCREMENT COUNT
+            }
+            
+        }
+        printf("%d ",count); // PRINT THE FREQUENCY OF EACH NUMBER
+        c++; // INCREMENTING THE ASCII VALUE OF CHARACTER FROM 0 TILL 9
+        
+    }
+    
+    return 0;
+}
+
