@@ -1,0 +1,194 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+string ltrim(const string &);
+string rtrim(const string &);
+vector<string> split(const string &);
+
+/*
+ * Complete the 'climbingLeaderboard' function below.
+ *
+ * The function is expected to return an INTEGER_ARRAY.
+ * The function accepts following parameters:
+ *  1. INTEGER_ARRAY ranked
+ *  2. INTEGER_ARRAY player
+ */
+
+vector<int> climbingLeaderboard(vector<int> ranked, vector<int> player) {
+    int ranked_size = ranked.size();
+    int player_size = player.size();
+    vector<int> answer(player_size);
+    vector<int> pure_ranked(ranked_size);
+    
+    
+    // REMOVE DUPLICATE ELEMENTS FROM ARRAY
+    int index = 0;
+    for(int i=0;i<ranked_size;i++)
+    {
+        if(ranked[i] == ranked[i-1])
+        {
+            continue;
+        }
+        else 
+        {
+            pure_ranked[index] = ranked[i];
+            
+            index++;
+        }
+       
+    }
+    
+    int pure_ranked_size = pure_ranked.size();
+    // APPLY BINARY SEARCH ON THE ARRAY
+    
+    index = 0;
+    int mid;
+    
+    // USE FOR LOOP TILL THE SIZE OF PLAYER ARRAY
+    // BECAUSE WE HAVE TO APPLY BINARY SEARCH FOR EVERY PLAYER
+    for(int i=0;i<player_size;i++)
+    {
+        int low = 0, high = pure_ranked_size - 1;
+        int flag = 0;
+        while(pure_ranked[high] == 0) // SETTING HIGH VALUE TO NON ZERO VALUE FROM RIGHT
+        {
+            high --;
+        }
+        while(low <= high)
+        {
+            mid = (low + high)/2;
+            if(player[i] == pure_ranked[mid])
+            {
+                // PLAYER NUMBER IS PRESENT IN PURE RANKED ARRAY
+                answer[index] = mid + 1;
+                cout<<answer[index];
+                index++;
+                flag = 1; // SET TO 1 SO THAT IT CAN NOT REENTER THE RANK IN ANSWER ARRAY
+                break;
+            }
+            else if(player[i] < pure_ranked[mid])
+            {
+                low = mid + 1;
+            }
+            else 
+            {
+                high = mid - 1;
+            }
+        }
+        
+        // IF FLAG = 0 MEANS PLAYER NUMBER IS NOT PRESENT IN PURE RANKED ARRAY SO WE HAVE TO CALCULATE IT'S RANK ACCORDING TO PURE RANKED ARRAY
+        if(flag == 0 && player[i] > pure_ranked[mid])
+        {
+            // PLAYER NUMBER IS GREATER THAN PURE_RANKED NUMBER AND NOT PRESENT IN THE ARRAY, SO RANK MUST BE MID + 1
+            answer[index] = mid + 1;
+            cout<<answer[index];
+            index++;
+        }
+        else if(flag == 0 && player[i] < pure_ranked[mid])
+        {
+            // PLAYER NUMBER IS LESS THAN PURE RANKED NUMBER, SO WE HAVE TO CONSIDER PURE RANKED NUMBER SO ANSWER IS MID + 2.
+            answer[index] = mid + 2;
+            cout<<answer[index];
+            index++;
+        }
+    }
+    
+    return answer;
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    string ranked_count_temp;
+    getline(cin, ranked_count_temp);
+
+    int ranked_count = stoi(ltrim(rtrim(ranked_count_temp)));
+
+    string ranked_temp_temp;
+    getline(cin, ranked_temp_temp);
+
+    vector<string> ranked_temp = split(rtrim(ranked_temp_temp));
+
+    vector<int> ranked(ranked_count);
+
+    for (int i = 0; i < ranked_count; i++) {
+        int ranked_item = stoi(ranked_temp[i]);
+
+        ranked[i] = ranked_item;
+    }
+
+    string player_count_temp;
+    getline(cin, player_count_temp);
+
+    int player_count = stoi(ltrim(rtrim(player_count_temp)));
+
+    string player_temp_temp;
+    getline(cin, player_temp_temp);
+
+    vector<string> player_temp = split(rtrim(player_temp_temp));
+
+    vector<int> player(player_count);
+
+    for (int i = 0; i < player_count; i++) {
+        int player_item = stoi(player_temp[i]);
+
+        player[i] = player_item;
+    }
+
+    vector<int> result = climbingLeaderboard(ranked, player);
+
+    for (size_t i = 0; i < result.size(); i++) {
+        fout << result[i];
+
+        if (i != result.size() - 1) {
+            fout << "\n";
+        }
+    }
+
+    fout << "\n";
+
+    fout.close();
+
+    return 0;
+}
+
+string ltrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        s.begin(),
+        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
+    );
+
+    return s;
+}
+
+string rtrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
+        s.end()
+    );
+
+    return s;
+}
+
+vector<string> split(const string &str) {
+    vector<string> tokens;
+
+    string::size_type start = 0;
+    string::size_type end = 0;
+
+    while ((end = str.find(" ", start)) != string::npos) {
+        tokens.push_back(str.substr(start, end - start));
+
+        start = end + 1;
+    }
+
+    tokens.push_back(str.substr(start));
+
+    return tokens;
+}
